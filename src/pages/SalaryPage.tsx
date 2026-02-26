@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Download, Wallet } from "lucide-react";
+import { useState, useRef } from "react";
+import { ChevronLeft, ChevronRight, Download, Share2, Wallet } from "lucide-react";
 import { getStaff, calculateSalary } from "@/lib/store";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/sonner";
 
 export default function SalaryPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -14,8 +15,42 @@ export default function SalaryPage() {
   const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
   const salaries = staffList.map(s => calculateSalary(s.id, year, month)).filter(Boolean);
-
   const totalPayout = salaries.reduce((sum, s) => sum + (s?.totalSalary || 0), 0);
+
+  const generateTextReport = () => {
+    let text = `Salary Report - ${monthName}\n${'='.repeat(40)}\nTotal Payout: ₹${totalPayout.toLocaleString()}\n\n`;
+    salaries.forEach(s => {
+      if (!s) return;
+      text += `${s.staff.name} (${s.staff.role || 'Staff'})\n`;
+      text += `  Per Day: ₹${s.perDaySalary} | Present: ${s.presentDays} | Half: ${s.halfDays} | Absent: ${s.absentDays} | Leave: ${s.leaveDays}\n`;
+      text += `  Net Salary: ₹${s.totalSalary.toLocaleString()}\n\n`;
+    });
+    return text;
+  };
+
+  const handleDownload = () => {
+    const text = generateTextReport();
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `salary-report-${year}-${String(month + 1).padStart(2, '0')}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast("Report downloaded successfully");
+  };
+
+  const handleShare = async () => {
+    const text = generateTextReport();
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: `Salary Report - ${monthName}`, text });
+      } catch (e) { /* user cancelled */ }
+    } else {
+      await navigator.clipboard.writeText(text);
+      toast("Report copied to clipboard");
+    }
+  };
 
   if (staffList.length === 0) {
     return (
@@ -35,9 +70,19 @@ export default function SalaryPage() {
 
   return (
     <div>
-      <div className="page-header">
-        <h1 className="page-title">Salary Report</h1>
-        <p className="page-subtitle">Monthly salary calculated from attendance records</p>
+      <div className="page-header flex items-start justify-between">
+        <div>
+          <h1 className="page-title">Salary Report</h1>
+          <p className="page-subtitle">Monthly salary calculated from attendance records</p>
+        </div>
+        <div className="flex gap-2">
+          <Button size="sm" variant="outline" onClick={handleDownload}>
+            <Download className="w-4 h-4" /> Download
+          </Button>
+          <Button size="sm" variant="outline" onClick={handleShare}>
+            <Share2 className="w-4 h-4" /> Share
+          </Button>
+        </div>
       </div>
 
       {/* Month navigation */}
