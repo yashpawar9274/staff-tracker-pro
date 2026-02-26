@@ -3,11 +3,11 @@ import { LayoutDashboard, Users, CalendarCheck, Wallet, Menu, X } from "lucide-r
 import { useState } from "react";
 
 const navItems = [
-  { to: "/", icon: LayoutDashboard, label: "Dashboard" },
-  { to: "/staff", icon: Users, label: "Staff" },
-  { to: "/attendance", icon: CalendarCheck, label: "Attendance" },
-  { to: "/salary", icon: Wallet, label: "Salary" },
-];
+{ to: "/", icon: LayoutDashboard, label: "Dashboard" },
+{ to: "/staff", icon: Users, label: "Staff" },
+{ to: "/attendance", icon: CalendarCheck, label: "Attendance" },
+{ to: "/salary", icon: Wallet, label: "Salary" }];
+
 
 export default function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,9 +15,9 @@ export default function AppLayout() {
   return (
     <div className="flex min-h-screen">
       {/* Mobile overlay */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-foreground/30 md:hidden" onClick={() => setMobileOpen(false)} />
-      )}
+      {mobileOpen &&
+      <div className="fixed inset-0 z-40 bg-foreground/30 md:hidden" onClick={() => setMobileOpen(false)} />
+      }
 
       {/* Sidebar */}
       <aside className={`fixed z-50 top-0 left-0 h-full w-64 bg-sidebar text-sidebar-foreground flex flex-col transition-transform duration-300 md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} md:static md:flex`}>
@@ -29,27 +29,27 @@ export default function AppLayout() {
           </div>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1">
-          {navItems.map(item => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === "/"}
-              onClick={() => setMobileOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-sidebar-accent text-sidebar-primary'
-                    : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground'
-                }`
-              }
-            >
+          {navItems.map((item) =>
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.to === "/"}
+            onClick={() => setMobileOpen(false)}
+            className={({ isActive }) =>
+            `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+            isActive ?
+            'bg-sidebar-accent text-sidebar-primary' :
+            'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground'}`
+
+            }>
+
               <item.icon className="w-5 h-5" />
               {item.label}
             </NavLink>
-          ))}
+          )}
         </nav>
-        <div className="px-6 py-4 border-t border-sidebar-border text-xs text-sidebar-foreground/50">
-          © 2026 AttendEase
+        <div className="px-6 py-4 border-t border-sidebar-border text-xs text-sidebar-foreground/50">© 2026 Yash Pawar
+
         </div>
       </aside>
 
@@ -66,6 +66,6 @@ export default function AppLayout() {
           <Outlet />
         </div>
       </main>
-    </div>
-  );
+    </div>);
+
 }
