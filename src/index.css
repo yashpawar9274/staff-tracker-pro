@@ -34,7 +34,7 @@
     --input: 214 20% 90%;
     --ring: 199 89% 38%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 215 25% 14%;
     --sidebar-foreground: 210 20% 90%;
@@ -104,7 +104,7 @@
 
 @layer components {
   .stat-card {
-    @apply bg-card rounded-xl border p-5 shadow-sm transition-all duration-200 hover:shadow-md;
+    @apply bg-card rounded-2xl border p-5 shadow-sm transition-all duration-200 hover:shadow-md;
   }
 
   .page-header {
@@ -112,11 +112,16 @@
   }
 
   .page-title {
-    @apply text-2xl font-bold tracking-tight text-foreground;
+    @apply text-xl md:text-2xl font-bold tracking-tight text-foreground;
     font-family: var(--font-heading);
   }
 
   .page-subtitle {
-    @apply text-sm text-muted-foreground mt-1;
+    @apply text-sm text-muted-foreground mt-0.5;
+  }
+
+  /* Android ripple-like active states */
+  .android-ripple {
+    @apply active:scale-[0.97] active:opacity-80 transition-all duration-150;
   }
 }
