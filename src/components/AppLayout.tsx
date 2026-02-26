@@ -24,7 +24,7 @@ export default function AppLayout() {
         <div className="flex items-center gap-3 px-6 py-5 border-b border-sidebar-border">
           <div className="w-9 h-9 rounded-lg bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground font-bold text-lg">A</div>
           <div>
-            <h1 className="font-heading text-base font-bold">AttendEase</h1>
+            <h1 className="font-heading text-base font-bold">YP.Attendance</h1>
             <p className="text-xs text-sidebar-foreground/60">Staff Manager</p>
           </div>
         </div>
