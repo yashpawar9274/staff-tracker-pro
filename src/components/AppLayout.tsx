@@ -60,7 +60,7 @@ export default function AppLayout() {
           <button onClick={() => setMobileOpen(true)} className="p-2 rounded-lg hover:bg-muted">
             <Menu className="w-5 h-5" />
           </button>
-          <span className="font-heading font-bold">AttendEase</span>
+          <span className="font-heading font-bold">YP.Attendace</span>
         </div>
         <div className="p-4 md:p-8 max-w-6xl">
           <Outlet />
