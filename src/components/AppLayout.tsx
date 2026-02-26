@@ -43,9 +43,9 @@ export default function AppLayout() {
       {/* Sidebar */}
       <aside className={`fixed z-50 top-0 left-0 h-full w-64 bg-sidebar text-sidebar-foreground flex flex-col transition-transform duration-300 md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} md:static md:flex`}>
         <div className="flex items-center gap-3 px-6 py-5 border-b border-sidebar-border">
-          <div className="w-9 h-9 rounded-lg bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground font-bold text-lg">A</div>
+          <img src="/logo.png" alt="YP Attendance" className="w-9 h-9 rounded-lg" />
           <div>
-            <h1 className="font-heading text-base font-bold">YP.Attendance</h1>
+            <h1 className="font-heading text-base font-bold">YP Attendance</h1>
             <p className="text-xs text-sidebar-foreground/60">Staff Manager</p>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function AppLayout() {
           <button onClick={() => setMobileOpen(true)} className="p-2 rounded-lg hover:bg-muted">
             <Menu className="w-5 h-5" />
           </button>
-          <span className="font-heading font-bold">YP.Attendace</span>
+          <span className="font-heading font-bold">YP Attendance</span>
         </div>
         <div className="p-4 md:p-8 max-w-6xl">
           <Outlet />
