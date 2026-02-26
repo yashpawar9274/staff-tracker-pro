@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Plus, Pencil, Trash2, Phone, X } from "lucide-react";
 import { getStaff, addStaff, updateStaff, deleteStaff, generateId, randomAvatar, type Staff } from "@/lib/store";
+import SwipeableStaffCard from "@/components/SwipeableStaffCard";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -83,34 +84,12 @@ export default function StaffPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {staffList.map(s => (
-            <div key={s.id} className="stat-card">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-2xl">{s.avatar}</div>
-                  <div>
-                    <h3 className="font-semibold text-sm">{s.name}</h3>
-                    <p className="text-xs text-muted-foreground">{s.role || 'Staff'}</p>
-                  </div>
-                </div>
-                <div className="flex gap-1">
-                  <button onClick={() => openEdit(s)} className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
-                    <Pencil className="w-4 h-4" />
-                  </button>
-                  <button onClick={() => handleDelete(s.id)} className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-              {s.phone && (
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                  <Phone className="w-3.5 h-3.5" /> {s.phone}
-                </div>
-              )}
-              <div className="flex items-center justify-between pt-3 border-t">
-                <span className="text-xs text-muted-foreground">Per Day Salary</span>
-                <span className="font-heading font-bold text-primary">₹{s.perDaySalary}</span>
-              </div>
-            </div>
+            <SwipeableStaffCard
+              key={s.id}
+              staff={s}
+              onEdit={openEdit}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       )}
